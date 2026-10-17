@@ -2,9 +2,9 @@
 
 An agentic vision-language assistant for remote-sensing images, driven by plain-language questions. Smart India Hackathon 2026, problem statement **SIH26167**.
 
-[![SatQuery promo (click to play)](video/satquery-promo-cover.png)](video/satquery-promo.mp4)
+[![SatQuery promo (click to play)](video/satquery-promo-cover.png)](https://cdn.jsdelivr.net/gh/akn-official/satquery-ai@main/video/satquery-promo-web.mp4)
 
-**[Watch the promo (30 s, 1080p)](video/satquery-promo.mp4)**. The scenes in the film are synthetic test scenes; every number, answer, trace and box on screen is real SatQuery output on them (see [video/source/BRIEF.md](video/source/BRIEF.md)).
+**[▶ Play the promo in your browser (30 s, 1080p60, sound on)](https://cdn.jsdelivr.net/gh/akn-official/satquery-ai@main/video/satquery-promo-web.mp4)** · [full-quality file](video/satquery-promo.mp4). The scenes in the film are synthetic test scenes; every number, answer, trace and box on screen is real SatQuery output on them (see [video/source/BRIEF.md](video/source/BRIEF.md)).
 
 ## What it does
 
