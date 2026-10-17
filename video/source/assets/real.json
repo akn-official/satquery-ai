@@ -1,0 +1,232 @@
+{
+ "change": {
+  "query": "What changed, and where?",
+  "answer": "Based on the provided measurements and visual evidence, here\u2019s what changed between Image 1 (earlier) and Image 2 (later):\n\nWhat Changed:\n- Water/Flooding Increased: The most significant change is a large area of new or increased water coverage, likely due to flooding. This is confirmed by:\n  - A negative NDVI delta (-0.981), indicating loss of vegetation cover (likely submerged crops).\n  - A positive NDWI delta (+0.838), which typically indicates increased water content in the canopy.\n  - The tool explicitly flags this as \"likely new water / flooding.\"\n\nWhere:\n- The change occurred primarily along the river channel and its immediate floodplain, extending into adjacent agricultural fields.\n- In Image 1, the river appears as a dark blue line with some green/brown patches on either side (vegetated banks).\n- In Image 2, this same area is",
+  "evidence": [
+   "change_cva: changed_pct=9.16, threshold=1.666, ndvi_delta_in_changed=-0.981, ndwi_delta_in_changed=0.838, likely=new water / flooding"
+  ],
+  "confidence": 0.582,
+  "trace": {
+   "task": "change",
+   "input_config": "bitemporal",
+   "plan": [
+    "change_cva",
+    "vlm_change"
+   ],
+   "inputs": [
+    {
+     "name": "river_t1.tif",
+     "modality": "optical",
+     "bands": 4,
+     "size": [
+      1024,
+      1024
+     ],
+     "crs": null
+    },
+    {
+     "name": "river_t2.tif",
+     "modality": "optical",
+     "bands": 4,
+     "size": [
+      1024,
+      1024
+     ],
+     "crs": null
+    }
+   ],
+   "steps": [
+    {
+     "tool": "change_cva",
+     "params": {
+      "threshold": null,
+      "noise_k": 2.0
+     },
+     "status": "ok",
+     "ms": 117,
+     "stats": {
+      "changed_pct": 9.16,
+      "threshold": 1.666,
+      "ndvi_delta_in_changed": -0.981,
+      "ndwi_delta_in_changed": 0.838,
+      "likely": "new water / flooding"
+     },
+     "conf": null,
+     "output": null
+    },
+    {
+     "tool": "vlm_change",
+     "params": {
+      "max_tokens": 200
+     },
+     "status": "ok",
+     "ms": 30254,
+     "stats": null,
+     "conf": 0.582,
+     "output": "Based on the provided measurements and visual evidence, here\u2019s what changed between Image 1 (earlier) and Image 2 (later):\n\nWhat Changed:\n- Water/Flooding Increased: The most significant change is a large area of new or increased water coverage, likely due to flooding. This is confirmed by:\n  - A negative NDVI delta (-0.981), indicating loss of vegetation cover (likely submerged crops).\n  - A positive NDWI delta (+0.838), which typically indicates increased water content in the canopy.\n  - The tool explicitly flags this as \"likely new water / flooding.\"\n\nWhere:\n- The change occurred primarily along the river channel and its immediate floodplain, extending into adjacent agricultural fields.\n- In Image 1, the river appears as a dark blue line with some green/brown patches on either side (vegetated banks).\n- In Image 2, this same area is"
+    }
+   ]
+  }
+ },
+ "ground": {
+  "query": "Where is the town?",
+  "answer": "Located in box x 0.458-0.75, y 0.396-0.726 (fraction of image width/height); the highlighted region covers 9.67% of the scene. Raw VLM output: [458, 396, 750, 726]",
+  "evidence": [
+   "vlm_ground: bbox_norm=[0.458, 0.396, 0.75, 0.726], area_pct=9.67"
+  ],
+  "confidence": 0.47,
+  "trace": {
+   "task": "ground",
+   "input_config": "single",
+   "plan": [
+    "vlm_ground"
+   ],
+   "inputs": [
+    {
+     "name": "river_t2.tif",
+     "modality": "optical",
+     "bands": 4,
+     "size": [
+      1024,
+      1024
+     ],
+     "crs": null
+    }
+   ],
+   "steps": [
+    {
+     "tool": "vlm_ground",
+     "params": {
+      "max_tokens": 64
+     },
+     "status": "ok",
+     "ms": 5894,
+     "stats": {
+      "bbox_norm": [
+       0.458,
+       0.396,
+       0.75,
+       0.726
+      ],
+      "area_pct": 9.67
+     },
+     "conf": 0.47,
+     "output": "Located in box x 0.458-0.75, y 0.396-0.726 (fraction of image width/height); the highlighted region covers 9.67% of the scene. Raw VLM output: [458, 396, 750, 726]"
+    }
+   ]
+  }
+ },
+ "fuse": {
+  "query": "Find the water in the optical and SAR images",
+  "answer": "Based on the fused results from the tools:\n\nWater in Optical Image: 23.09%\nWater in SAR Image: 19.17%\nFused Water Percentage (Both): 17.05%\n\nThe water percentage is highest in the optical image, followed by the SAR image, and lowest in the fused result.",
+  "evidence": [
+   "water_optical: water_pct=23.09",
+   "water_sar: water_pct=19.17, threshold_db=-16.06",
+   "fuse_water: water_both_pct=17.05, optical_only_pct=6.04, sar_only_pct=2.12, pixel_agreement=0.918",
+   "builtup_fusion: builtup_pct=3.57, vv_threshold_db=-5.0"
+  ],
+  "confidence": 0.797,
+  "trace": {
+   "task": "ground",
+   "input_config": "optical_sar",
+   "plan": [
+    "water_optical",
+    "water_sar",
+    "fuse_water",
+    "builtup_fusion",
+    "vlm_vqa"
+   ],
+   "inputs": [
+    {
+     "name": "river_t2.tif",
+     "modality": "optical",
+     "bands": 4,
+     "size": [
+      1024,
+      1024
+     ],
+     "crs": null
+    },
+    {
+     "name": "river_sar.tif",
+     "modality": "sar",
+     "bands": 1,
+     "size": [
+      1024,
+      1024
+     ],
+     "crs": null
+    }
+   ],
+   "steps": [
+    {
+     "tool": "water_optical",
+     "params": {
+      "ndwi_min": 0.0
+     },
+     "status": "ok",
+     "ms": 9,
+     "stats": {
+      "water_pct": 23.09
+     },
+     "conf": null,
+     "output": null
+    },
+    {
+     "tool": "water_sar",
+     "params": {
+      "threshold_db": null
+     },
+     "status": "ok",
+     "ms": 15,
+     "stats": {
+      "water_pct": 19.17,
+      "threshold_db": -16.06
+     },
+     "conf": null,
+     "output": null
+    },
+    {
+     "tool": "fuse_water",
+     "params": {},
+     "status": "ok",
+     "ms": 7,
+     "stats": {
+      "water_both_pct": 17.05,
+      "optical_only_pct": 6.04,
+      "sar_only_pct": 2.12,
+      "pixel_agreement": 0.918
+     },
+     "conf": 0.918,
+     "output": null
+    },
+    {
+     "tool": "builtup_fusion",
+     "params": {
+      "vv_min_db": -5.0,
+      "ndvi_max": 0.2
+     },
+     "status": "ok",
+     "ms": 12,
+     "stats": {
+      "builtup_pct": 3.57,
+      "vv_threshold_db": -5.0
+     },
+     "conf": null,
+     "output": null
+    },
+    {
+     "tool": "vlm_vqa",
+     "params": {
+      "max_tokens": 200
+     },
+     "status": "ok",
+     "ms": 10588,
+     "stats": null,
+     "conf": 0.676,
+     "output": "Based on the fused results from the tools:\n\nWater in Optical Image: 23.09%\nWater in SAR Image: 19.17%\nFused Water Percentage (Both): 17.05%\n\nThe water percentage is highest in the optical image, followed by the SAR image, and lowest in the fused result."
+    }
+   ]
+  }
+ }
+}

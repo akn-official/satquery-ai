@@ -1,0 +1,176 @@
+{
+ "Locate the bridge where the road crosses the river": {
+  "query": "Locate the bridge where the road crosses the river",
+  "answer": "Located in box x 0.398-0.7, y 0.456-0.5 (fraction of image width/height); the highlighted region covers 0.97% of the scene. Raw VLM output: [398, 456, 700, 500]",
+  "evidence": [
+   "water_optical: water_pct=23.09",
+   "vlm_ground: bbox_norm=[0.398, 0.456, 0.7, 0.5], area_pct=0.97"
+  ],
+  "confidence": 0.328,
+  "trace": {
+   "task": "ground",
+   "input_config": "single",
+   "plan": [
+    "water_optical",
+    "vlm_ground"
+   ],
+   "inputs": [
+    {
+     "name": "river_t2.tif",
+     "modality": "optical",
+     "bands": 4,
+     "size": [
+      1024,
+      1024
+     ],
+     "crs": null
+    }
+   ],
+   "steps": [
+    {
+     "tool": "water_optical",
+     "params": {
+      "ndwi_min": 0.0
+     },
+     "status": "ok",
+     "ms": 7,
+     "stats": {
+      "water_pct": 23.09
+     },
+     "conf": null,
+     "output": null
+    },
+    {
+     "tool": "vlm_ground",
+     "params": {
+      "max_tokens": 64
+     },
+     "status": "ok",
+     "ms": 6205,
+     "stats": {
+      "bbox_norm": [
+       0.398,
+       0.456,
+       0.7,
+       0.5
+      ],
+      "area_pct": 0.97
+     },
+     "conf": 0.328,
+     "output": "Located in box x 0.398-0.7, y 0.456-0.5 (fraction of image width/height); the highlighted region covers 0.97% of the scene. Raw VLM output: [398, 456, 700, 500]"
+    }
+   ]
+  }
+ },
+ "Where is the town?": {
+  "query": "Where is the town?",
+  "answer": "Located in box x 0.458-0.75, y 0.396-0.726 (fraction of image width/height); the highlighted region covers 9.67% of the scene. Raw VLM output: [458, 396, 750, 726]",
+  "evidence": [
+   "vlm_ground: bbox_norm=[0.458, 0.396, 0.75, 0.726], area_pct=9.67"
+  ],
+  "confidence": 0.47,
+  "trace": {
+   "task": "ground",
+   "input_config": "single",
+   "plan": [
+    "vlm_ground"
+   ],
+   "inputs": [
+    {
+     "name": "river_t2.tif",
+     "modality": "optical",
+     "bands": 4,
+     "size": [
+      1024,
+      1024
+     ],
+     "crs": null
+    }
+   ],
+   "steps": [
+    {
+     "tool": "vlm_ground",
+     "params": {
+      "max_tokens": 64
+     },
+     "status": "ok",
+     "ms": 5894,
+     "stats": {
+      "bbox_norm": [
+       0.458,
+       0.396,
+       0.75,
+       0.726
+      ],
+      "area_pct": 9.67
+     },
+     "conf": 0.47,
+     "output": "Located in box x 0.458-0.75, y 0.396-0.726 (fraction of image width/height); the highlighted region covers 9.67% of the scene. Raw VLM output: [458, 396, 750, 726]"
+    }
+   ]
+  }
+ },
+ "Find the flooded fields": {
+  "query": "Find the flooded fields",
+  "answer": "Located in box x 0.357-0.999, y 0.486-0.736 (fraction of image width/height); the highlighted region covers 5.6% of the scene. Raw VLM output: [357, 486, 999, 736]",
+  "evidence": [
+   "water_optical: water_pct=23.09",
+   "vlm_ground: bbox_norm=[0.357, 0.486, 0.999, 0.736], area_pct=5.6"
+  ],
+  "confidence": 0.338,
+  "trace": {
+   "task": "ground",
+   "input_config": "single",
+   "plan": [
+    "water_optical",
+    "vlm_ground"
+   ],
+   "inputs": [
+    {
+     "name": "river_t2.tif",
+     "modality": "optical",
+     "bands": 4,
+     "size": [
+      1024,
+      1024
+     ],
+     "crs": null
+    }
+   ],
+   "steps": [
+    {
+     "tool": "water_optical",
+     "params": {
+      "ndwi_min": 0.0
+     },
+     "status": "ok",
+     "ms": 9,
+     "stats": {
+      "water_pct": 23.09
+     },
+     "conf": null,
+     "output": null
+    },
+    {
+     "tool": "vlm_ground",
+     "params": {
+      "max_tokens": 64
+     },
+     "status": "ok",
+     "ms": 5677,
+     "stats": {
+      "bbox_norm": [
+       0.357,
+       0.486,
+       0.999,
+       0.736
+      ],
+      "area_pct": 5.6
+     },
+     "conf": 0.338,
+     "output": "Located in box x 0.357-0.999, y 0.486-0.736 (fraction of image width/height); the highlighted region covers 5.6% of the scene. Raw VLM output: [357, 486, 999, 736]"
+    }
+   ]
+  }
+ }
+}

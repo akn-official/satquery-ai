@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>SatQuery promo</title>
+<link rel="stylesheet" href="../../lib/motion.css">
+<style>
+/* The app's own type (Atkinson Hyperlegible Next + Mono, OFL, from web/dist) and survey-sheet tokens (web/src/index.css). */
+@font-face { font-family: 'Next'; src: url('fonts/next.woff2') format('woff2'); font-weight: 200 800; }
+@font-face { font-family: 'Mono'; src: url('fonts/mono.woff2') format('woff2'); font-weight: 200 800; }
+#v { width: 1920px; height: 1080px; background: #fbfcfd; font-family: 'Next', sans-serif; color: #1b1f27; }
+#bg { position: absolute; inset: 0; }
+.tick-x, .tick-y { position: absolute; color: #a1a7af; }
+.tick-x { left: 0; right: 0; height: 6px; border-right: 1px solid; background: repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 10%); }
+.tick-y { top: 0; bottom: 0; width: 6px; border-bottom: 1px solid; background: repeating-linear-gradient(180deg, currentColor 0 1px, transparent 1px 10%); }
+.tick-x.t { top: -8px; } .tick-x.b { bottom: -8px; } .tick-y.l { left: -8px; } .tick-y.r { right: -8px; }
+.mono { font-family: 'Mono', monospace; }
+.px img { image-rendering: pixelated; }
+</style></head>
+<body><div id="v"><canvas id="bg" width="1920" height="1080"></canvas></div>
+<script src="../../lib/motion.js"></script>
+<script src="scene.js"></script></body></html>

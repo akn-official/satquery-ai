@@ -1,0 +1,8 @@
+{
+  "fps": 60, "duration": 30.72, "subframes": 8, "shutter": 0.7, "width": 1920, "height": 1080,
+  "bpm": 125, "bar": 1.92, "beat": 0.48,
+  "type1": 4.9, "run": 7.2, "answer": 7.68, "paint": 9.6, "roll": 12.48, "conf": 14.4,
+  "cloud": 15.36, "sarWipe": 16.4, "sarMask": 17.28, "fuse": 18.24, "clear2": 19.24, "type2": 19.3, "enter2": 20.04,
+  "box": 20.16, "trace": 22.08, "report": 23.52, "sheets": 24.0, "end": 26.88, "fade": 30.1,
+  "stops": [[1.8, 1.92], [3.6, 3.84], [9.36, 9.6], [15.0, 15.36], [19.08, 19.2], [26.4, 26.88]]
+}

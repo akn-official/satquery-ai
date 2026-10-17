@@ -1,0 +1,29 @@
+{
+ "change_cva": {
+  "changed_pct": 9.16,
+  "threshold": 1.666,
+  "ndvi_delta_in_changed": -0.981,
+  "ndwi_delta_in_changed": 0.838,
+  "likely": "new water / flooding"
+ },
+ "water_optical": {
+  "water_pct": 23.09
+ },
+ "water_sar": {
+  "water_pct": 19.17,
+  "threshold_db": -16.06
+ },
+ "fuse_water": {
+  "water_both_pct": 17.05,
+  "optical_only_pct": 6.04,
+  "sar_only_pct": 2.12,
+  "pixel_agreement": 0.918
+ },
+ "bridge_px": [
+  463,
+  461,
+  581,
+  534
+ ],
+ "size": 1024
+}

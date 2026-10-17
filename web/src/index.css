@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+/* Survey-sheet palette: cool paper, ink, 1px rules. One data colour (--color-signal) = the red the backend paints on masks. */
+@theme {
+  --font-sans: 'Atkinson Hyperlegible Next Variable', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'Atkinson Hyperlegible Mono Variable', ui-monospace, 'Cascadia Mono', monospace;
+  --color-paper: oklch(0.99 0.003 245);
+  --color-sheet: oklch(0.966 0.005 245);
+  --color-well: oklch(0.935 0.006 245);
+  --color-rule: oklch(0.87 0.008 245);
+  --color-rule-strong: oklch(0.7 0.01 245);
+  --color-ink: oklch(0.21 0.015 250);
+  --color-ink-2: oklch(0.4 0.015 250);
+  --color-ink-3: oklch(0.52 0.012 250);
+  --color-signal: oklch(0.59 0.21 29);
+  --color-ok: oklch(0.5 0.12 150);
+  --color-warn: oklch(0.52 0.12 65);
+  --color-bad: oklch(0.5 0.19 25);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+html { color-scheme: light; background: var(--color-paper); }
+body { @apply bg-paper font-sans text-ink antialiased; font-size: 16px; }
+::selection { background: oklch(0.85 0.06 245); }
+:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 2px; }
+
+button { cursor: pointer; transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease, transform 120ms var(--ease-out); }
+button:disabled { cursor: not-allowed; }
+button:active:not(:disabled) { transform: scale(0.98); }
+
+/* neatline: pixel ticks every 10% hugging the image frame, like the border of a toposheet */
+.tick-x, .tick-y { position: absolute; pointer-events: none; color: var(--color-rule-strong); }
+.tick-x { left: 0; right: 0; height: 6px; border-right: 1px solid; background: repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 10%); }
+.tick-y { top: 0; bottom: 0; width: 6px; border-bottom: 1px solid; background: repeating-linear-gradient(180deg, currentColor 0 1px, transparent 1px 10%); }
+.tick-x.t { top: -8px; } .tick-x.b { bottom: -8px; }
+.tick-y.l { left: -8px; } .tick-y.r { right: -8px; }
+
+/* new content settles in once; no orchestration */
+.enter { transition: opacity 220ms var(--ease-out), translate 220ms var(--ease-out); }
+@starting-style { .enter { opacity: 0; translate: 0 6px; } }
+
+.pulse { animation: pulse 1.4s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: 0.55; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse { animation: none; }
+  .enter { transition: opacity 150ms ease; }
+  @starting-style { .enter { translate: none; } }
+  button:active:not(:disabled) { transform: none; }
+}
