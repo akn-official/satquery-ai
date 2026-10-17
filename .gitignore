@@ -6,3 +6,6 @@ tmp/
 web/node_modules/
 .claude/
 *.log
+handoff.md
+prompt.md
+thought.md

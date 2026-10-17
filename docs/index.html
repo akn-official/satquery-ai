@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SatQuery AI</title>
+<meta name="description" content="Ask a satellite image a question in plain words. Get an answer you can check. SIH26167.">
+<meta property="og:title" content="SatQuery AI"><meta property="og:description" content="Ask the image. Get the evidence.">
+<meta property="og:image" content="https://akn-official.github.io/satquery-ai/img/cover.png">
+<link rel="icon" href="favicon.svg">
+<style>
+/* the app's own survey-sheet tokens (web/src/index.css): cool paper, ink, 1px rules, one data colour */
+@font-face { font-family: 'Next'; src: url('fonts/next.woff2') format('woff2'); font-weight: 200 800; font-display: swap; }
+@font-face { font-family: 'Mono'; src: url('fonts/mono.woff2') format('woff2'); font-weight: 200 800; font-display: swap; }
+:root { --paper: #fbfcfd; --sheet: #f2f4f6; --rule: #d4d8dd; --rule2: #a1a7af; --ink: #1b1f27; --ink2: #474e59; --ink3: #666d79; --signal: rgb(228,48,32); }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.55 'Next', 'Segoe UI', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-underline-offset: 3px; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+header { border-bottom: 1px solid var(--rule); }
+header .wrap { display: flex; align-items: center; gap: 12px; height: 60px; }
+header b { font-size: 19px; } header span { color: var(--ink2); font-size: 14px; }
+header nav { margin-left: auto; display: flex; gap: 22px; font-size: 15px; }
+header nav a { text-decoration: none; } header nav a:hover { text-decoration: underline; }
+h1 { font-size: clamp(38px, 6vw, 72px); line-height: 1.02; letter-spacing: -0.035em; font-weight: 800; margin: 56px 0 14px; }
+h1 em { font-style: normal; color: var(--signal); }
+.lede { max-width: 640px; color: var(--ink2); font-size: 19px; margin: 0 0 36px; }
+.film { position: relative; border: 1px solid var(--ink); background: #000; }
+.film video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; }
+.note { font: 13px/1.5 'Mono', ui-monospace, monospace; color: var(--ink3); margin: 10px 0 0; }
+.cols { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--rule); margin: 64px 0 0; }
+.cols div { padding: 22px 24px 26px 0; }
+.cols div + div { padding-left: 24px; border-left: 1px solid var(--rule); }
+.cols h2 { font-size: 18px; margin: 0 0 6px; } .cols p { margin: 0; color: var(--ink2); font-size: 15px; }
+h3 { font-size: 22px; letter-spacing: -0.01em; margin: 72px 0 18px; padding-bottom: 10px; border-bottom: 1px solid var(--rule); }
+.shots { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.shots figure { margin: 0; } .shots img { width: 100%; display: block; border: 1px solid var(--rule); }
+.shots figcaption { font-size: 14px; color: var(--ink3); margin-top: 8px; }
+.links { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--rule); }
+.links a { display: flex; justify-content: space-between; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--rule); text-decoration: none; }
+.links a:nth-child(odd) { margin-right: 24px; } .links a:nth-child(even) { margin-left: 24px; }
+.links a:hover span:first-child { text-decoration: underline; }
+.links span:last-child { font: 13px/1.9 'Mono', monospace; color: var(--ink3); white-space: nowrap; }
+footer { margin-top: 80px; border-top: 1px solid var(--rule); padding: 22px 0 40px; color: var(--ink3); font-size: 14px; }
+@media (max-width: 760px) {
+  header nav { display: none; }
+  .cols, .shots, .links { grid-template-columns: 1fr; }
+  .cols div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--rule); }
+  .links a:nth-child(odd), .links a:nth-child(even) { margin: 0; }
+}
+</style></head>
+<body>
+<header><div class="wrap"><img src="favicon.svg" width="28" height="28" alt=""><b>SatQuery</b><span>SIH26167 · remote-sensing assistant</span>
+  <nav><a href="#film">Film</a><a href="#app">The app</a><a href="#files">Files</a><a href="https://github.com/akn-official/satquery-ai">GitHub</a></nav></div></header>
+<main class="wrap">
+  <h1>Ask the image.<br>Get the <em>evidence.</em></h1>
+  <p class="lede">An agentic vision-language assistant for satellite imagery. Ask in plain words about one scene, an optical + SAR pair, or two dates of one area. The tools measure first, the model answers with those numbers, and every step lands in a trace you can download.</p>
+  <section id="film" class="film">
+    <video controls playsinline preload="metadata" poster="img/cover.png">
+      <source src="https://cdn.jsdelivr.net/gh/akn-official/satquery-ai@main/video/satquery-promo-web.mp4" type="video/mp4">
+      Your browser cannot play this video. <a href="https://cdn.jsdelivr.net/gh/akn-official/satquery-ai@main/video/satquery-promo-web.mp4">Download the MP4</a>.
+    </video>
+  </section>
+  <p class="note">30 s · 1080p60 · sound on. Scenes are synthetic test scenes; every number, answer, trace and box on screen is real SatQuery output on them.</p>
+
+  <div class="cols">
+    <div><h2>Measures before it speaks</h2><p>Water from NDWI and SAR backscatter, change from CVA with NDVI and NDWI deltas, fused optical + SAR. Masks are painted in one colour you can check.</p></div>
+    <div><h2>Sees through cloud</h2><p>Optical and radar run side by side; the fusion reports where they agree, pixel by pixel.</p></div>
+    <div><h2>On the record</h2><p>Each run keeps the plan, every tool call, its parameters, time and numbers, as an HTML report and a trace JSON.</p></div>
+  </div>
+
+  <h3 id="app">The real app</h3>
+  <div class="shots">
+    <figure><img src="img/app-answer.png" alt="SatQuery answering what changed between two dates" loading="lazy"><figcaption>The answer, with task, input, server and confidence.</figcaption></figure>
+    <figure><img src="img/app-evidence.png" alt="Change mask on the second date with the measured evidence table" loading="lazy"><figcaption>The change mask it measured, and the numbers behind it.</figcaption></figure>
+    <figure><img src="img/report.png" alt="The downloadable HTML report" loading="lazy"><figcaption>The downloadable report.</figcaption></figure>
+    <figure><img src="img/app-mobile.png" alt="The query column at phone width" loading="lazy" style="max-width:300px"><figcaption>Phone width, 390 px.</figcaption></figure>
+  </div>
+
+  <h3 id="files">Files</h3>
+  <div class="links">
+    <a href="sample-report.html"><span>Sample report</span><span>HTML · from this run</span></a>
+    <a href="sample-trace.json"><span>Sample trace</span><span>JSON · every tool call</span></a>
+    <a href="https://github.com/akn-official/satquery-ai"><span>Source code</span><span>GitHub · MIT</span></a>
+    <a href="https://github.com/akn-official/satquery-ai/blob/main/output/pdf/SatQuery_AI_Operating_and_Presentation_Guide.pdf"><span>Operating and presentation guide</span><span>PDF</span></a>
+    <a href="https://kaggle.com/kernels/welcome?src=https://github.com/akn-official/satquery-ai/blob/main/kaggle/main_server.ipynb"><span>Run the MAIN server on Kaggle</span><span>T4 notebook</span></a>
+    <a href="https://cdn.jsdelivr.net/gh/akn-official/satquery-ai@main/video/satquery-promo.mp4"><span>The film, full quality</span><span>MP4 · 16 MB</span></a>
+  </div>
+</main>
+<footer><div class="wrap">SatQuery AI · Smart India Hackathon 2026 · problem statement SIH26167. Tested on synthetic GeoTIFFs; real Cartosat-2S and RISAT evaluation pending.</div></footer>
+</body></html>
